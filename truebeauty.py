@@ -10,12 +10,15 @@ import random
 import os
 import sys
 from tkinter import messagebox
+import win32print
+from datetime import datetime
+
 
 
 class true_beauty:
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1350x700+0+0")
+        self.root.geometry("1920x1080+0+0")
         self.root.configure(bg="#5B2C6F")
         self.root.title("Kelompok 5")
         title = Label(self.root, text="TRUE BEAUTY STORE", bd=12, relief=RIDGE, font=("Arial Black", 20), bg="#A569BD", fg="white")
@@ -53,9 +56,11 @@ class true_beauty:
         self.c_name = StringVar()
         self.bill_no = StringVar()
         self.phone = StringVar()
+        self.date = StringVar()
         x = random.randint(1000, 9999)
         self.bill_no.set(str(x))
         self.total_all_bill = StringVar()
+        self.txtarea = StringVar()
         
 # AHITSA
         # ----------COSTUMER DETAILS --------------------
@@ -76,6 +81,15 @@ class true_beauty:
         bill_name.grid(row=0, column=4, padx=10)
         bill_entry = Entry(details, borderwidth=4, width=30, textvariable=self.bill_no)
         bill_entry.grid(row=0, column=5, padx=8)
+
+        date_name = Label(details, text="Date", font=("Arial Black", 14), bg="#A569BD", fg="white")
+        date_name.grid(row=0, column=6, padx=10)
+
+        date_entry = Entry(details, borderwidth=4, width=30, textvariable=self.date)
+        date_entry.grid(row=0, column=7, padx=8)
+
+        # Set the current date and time
+        date_entry.insert(0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         # -------------------------------Makeup------------------------
         MakeUp = LabelFrame(self.root, text="MakeUp", font=("Arial Black", 12), bg="#E5B4F3", fg="#6C3483", relief=GROOVE, bd=10)
         MakeUp.place(x=5, y=180, height=380, width=325)
@@ -119,7 +133,7 @@ class true_beauty:
 #MONAAA
         # ===============================SKINCARE===============
         SkinCare = LabelFrame(self.root, text="SkinCare", font=("Arial Black", 12), relief=GROOVE, bd=10, bg="#E5B4F3", fg="#6C3483")
-        SkinCare.place(x=340, y=180, height=380, width=325)
+        SkinCare.place(x=400, y=180, height=380, width=325)
 
         item8_label = Label(SkinCare, text="Facewash", font=("Arial Black", 11), bg="#E5B4F3", fg="#6C3483")
         item8_label.grid(row=0, column=0, pady=11)
@@ -159,7 +173,7 @@ class true_beauty:
 
         #-------------------------Body Care-----------------
         BodyCare = LabelFrame(self.root, text="BodyCare", font=("Arial Black", 12), relief=GROOVE, bd=10, bg="#E5B4F3", fg="#6C3483")
-        BodyCare.place(x=677, y=180, height=380, width=325)
+        BodyCare.place(x=800, y=180, height=380, width=325)
 
         item15_label = Label(BodyCare, text="Body Scrub", font=("Arial Black", 11), bg="#E5B4F3", fg="#6C3483")
         item15_label.grid(row=0, column=0, pady=11)
@@ -199,7 +213,7 @@ class true_beauty:
         #------------------------------bill Area---------------------------
 
         billarea_Frame = Frame(self.root, bd=10, relief=GROOVE, bg="#E5B4F3")
-        billarea_Frame.place(x=1010, y=188, width=330, height=372)
+        billarea_Frame.place(x=1190, y=182, width=330, height=375)
         bill_title = Label(billarea_Frame, text="Bill Area", font=("Arial Black", 17), bd=7, relief=GROOVE, bg="#E5B4F3", fg="#6C3483")
         bill_title.pack(fill=X)
         scrol_y = Scrollbar(billarea_Frame, orient=VERTICAL)
@@ -210,7 +224,7 @@ class true_beauty:
 
         #==========================Bill menu=======================
         billing_menu = LabelFrame(self.root, text="Billing Summary", font=("Arial Black", 12), relief=GROOVE, bd=10, bg="#A569BD", fg="white")
-        billing_menu.place(x=0, y=560, relwidth=1, height=137)
+        billing_menu.place(x=0, y=620, relwidth=1, height=137)
 
         total_MakeUp = Label(billing_menu, text="Total MakeUp Price", font=("Arial Black", 11), bg="#A569BD", fg="white")
         total_MakeUp.grid(row=0, column=0)
@@ -250,21 +264,23 @@ class true_beauty:
         tax_BodyCare_entry.grid(row=2, column=3, padx=10, pady=7)
 
         button_frame = Frame(billing_menu, bd=7, relief=GROOVE, bg="#6C3483")
-        button_frame.place(x=850, width=480, height=95)
+        button_frame.place(x=850, width=600, height=95)
 
         button_total = Button(button_frame, text="Total Bill", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", command=lambda: total(self))
         button_total.grid(row=0, column=0, padx=12)
 
-        button_clear = Button(button_frame, text="Clear Field", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", command=lambda: clear(self))
+        button_clear = Button(button_frame, text="Bersihkan", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", command=lambda: clear(self))
         button_clear.grid(row=0, column=1, padx=10, pady=6)
 
-        button_exit = Button(button_frame, text="Exit", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", width=8, command=lambda: exit1(self))
+        button_exit = Button(button_frame, text="Keluar", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", width=8, command=lambda: exit1(self))
         button_exit.grid(row=0, column=2, padx=10, pady=6)
+        
+        print_button = Button(button_frame, text="Cetak", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", width=8, command=lambda: on_print_button_click(self))
+        print_button.grid(row=0, column=3, padx=10, pady=6)
 
         intro(self)
         billarea(self)
 
-# HERDINA
 def total(self):
     if self.c_name.get() == "" or self.phone.get() == "":
         messagebox.showerror("Error", "Fill the complete Customer Detail")
@@ -277,8 +293,8 @@ def total(self):
     self.si = self.Foundation.get() * 150000
     self.na = self.Primer.get() * 50000
     total_MakeUp_price = (self.nu + self.no + self.la + self.ore + self.mu + self.si + self.na)
-    self.total_makeup.set(str(total_MakeUp_price) + " Rp")
-    self.a.set(str(round(total_MakeUp_price * 0.05, 3)) + " Rp")
+    self.total_makeup.set(" Rp " + str(total_MakeUp_price))
+    self.a.set(" Rp " + str(round(total_MakeUp_price * 0.05, 3)))
     self.at = self.facewash.get() * 52000
     self.pa = self.toner.get() * 90000
     self.oi = self.serum.get() * 120000
@@ -287,8 +303,8 @@ def total(self):
     self.te = self.masker.get() * 48000
     self.da = self.sunscreen.get() * 76000
     total_SkinCare_price = (self.at + self.pa + self.oi + self.ri + self.su + self.te + self.da)
-    self.total_skincare.set(str(total_SkinCare_price) + " Rp")
-    self.b.set(str(round(total_SkinCare_price * 0.01, 3)) + " Rp")
+    self.total_skincare.set(" Rp " + str(total_SkinCare_price))
+    self.b.set(" Rp " + str(round(total_SkinCare_price * 0.01, 3)))
 
     self.body_scrub_price = self.body_scrub.get() * 50000
     self.shampoo_price = self.shampoo.get() * 30000
@@ -306,69 +322,70 @@ def total(self):
         self.sunblock_price +
         self.wax_price
     )
-    self.total_bodycare.set(str(total_BodyCare_price) + " Rp")
-    self.c.set(str(round(total_BodyCare_price * 0.10, 3)) + " Rp")
+    self.total_bodycare.set(" Rp " + str(total_BodyCare_price))
+    self.c.set(" Rp " + str(round(total_BodyCare_price * 0.10, 3)))
     
     total_bill = ( total_MakeUp_price + total_SkinCare_price + total_BodyCare_price + round(total_SkinCare_price * 0.01, 3) + round(total_BodyCare_price * 0.10, 3) +round(total_MakeUp_price * 0.05, 3) ) 
     
-    self.total_all_bill = str(total_bill) + " Rp"
+    self.total_all_bill =" Rp " +  str(total_bill)
     billarea(self)
     
 def intro(self):
     self.txtarea.delete(1.0, END)
-    self.txtarea.insert(END, "\tWELCOME TO TRUE BEAUTY STORE\n\tPhone-No.739275410")
+    self.txtarea.insert(END, "\tWELCOME TO TRUE BEAUTY STORE\n\tPhone-No.08132428974")
     self.txtarea.insert(END, f"\n\nBill no.: {self.bill_no.get()}")
+    self.txtarea.insert(END, f"\n\nDate and Time: {self.date.get()}")
     self.txtarea.insert(END, f"\nCustomer Name: {self.c_name.get()}")
     self.txtarea.insert(END, f"\nPhone No.: {self.phone.get()}")
-    self.txtarea.insert(END, "\n====================\n")
+    self.txtarea.insert(END, "\n================================\n")
     self.txtarea.insert(END, "Product\t\tQty\tPrice\n")
-    self.txtarea.insert(END, "====================\n")
+    self.txtarea.insert(END, "\n================================\n")
 
 def billarea(self):
     intro(self)
     if self.Liptint.get() != 0:
-        self.txtarea.insert(END, f"Liptint\t\t{self.Liptint.get()}\t{self.nu}\n")
+        self.txtarea.insert(END, f"Liptint\t\t{self.Liptint.get()}\tRp {self.nu}\n")
     if self.Highliter.get() != 0:
-        self.txtarea.insert(END, f"Highliter\t\t{self.Highliter.get()}\t{self.no}\n")
+        self.txtarea.insert(END, f"Highliter\t\t{self.Highliter.get()}\tRp {self.no}\n")
     if self.Concealer.get() != 0:
-        self.txtarea.insert(END, f"Concealer\t\t{self.Concealer.get()}\t{self.la}\n")
+        self.txtarea.insert(END, f"Concealer\t\t{self.Concealer.get()}\tRp {self.la}\n")
     if self.Eyeshadow.get() != 0:
-        self.txtarea.insert(END, f"Eyeshadow\t\t{self.Eyeshadow.get()}\t{self.ore}\n")
+        self.txtarea.insert(END, f"Eyeshadow\t\t{self.Eyeshadow.get()}\tRp {self.ore}\n")
     if self.Cushion.get() != 0:
-        self.txtarea.insert(END, f"Cushion\t\t{self.Cushion.get()}\t{self.mu}\n")
+        self.txtarea.insert(END, f"Cushion\t\t{self.Cushion.get()}\tRp {self.mu}\n")
     if self.Foundation.get() != 0:
-        self.txtarea.insert(END, f"Foundation\t\t{self.Foundation.get()}\t{self.si}\n")
+        self.txtarea.insert(END, f"Foundation\t\t{self.Foundation.get()}\tRp {self.si}\n")
     if self.Primer.get() != 0:
-        self.txtarea.insert(END, f"Primer\t\t{self.Primer.get()}\t{self.na}\n")
+        self.txtarea.insert(END, f"Primer\t\t{self.Primer.get()}\tRp {self.na}\n")
     if self.facewash.get() != 0:
-        self.txtarea.insert(END, f"facewash\t\t{self.facewash.get()}\t{self.at}\n")
+        self.txtarea.insert(END, f"facewash\t\t{self.facewash.get()}\tRp {self.at}\n")
     if self.toner.get() != 0:
-        self.txtarea.insert(END, f"toner\t\t{self.toner.get()}\t{self.pa}\n")
+        self.txtarea.insert(END, f"toner\t\t{self.toner.get()}\tRp {self.pa}\n")
     if self.essence.get() != 0:
-        self.txtarea.insert(END, f"essence\t\t{self.essence.get()}\t{self.ri}\n")
+        self.txtarea.insert(END, f"essence\t\t{self.essence.get()}\tRp {self.ri}\n")
     if self.serum.get() != 0:
-        self.txtarea.insert(END, f"serum\t\t{self.serum.get()}\t{self.oi}\n")
+        self.txtarea.insert(END, f"serum\t\t{self.serum.get()}\tRp {self.oi}\n")
     if self.moisturizer.get() != 0:
-        self.txtarea.insert(END, f"moisturizer\t\t{self.moisturizer.get()}\t{self.su}\n")
+        self.txtarea.insert(END, f"moisturizer\t\t{self.moisturizer.get()}\tRp {self.su}\n")
     if self.sunscreen.get() != 0:
-        self.txtarea.insert(END, f"Sunscreen\t\t{self.sunscreen.get()}\t{self.da}\n")
+        self.txtarea.insert(END, f"Sunscreen\t\t{self.sunscreen.get()}\tRp {self.da}\n")
     if self.masker.get() != 0:
-        self.txtarea.insert(END, f"masker\t\t{self.masker.get()}\t{self.te}\n")
+        self.txtarea.insert(END, f"masker\t\t{self.masker.get()}\tRp {self.te}\n")
     if self.body_scrub.get() != 0:
-        self.txtarea.insert(END, f"Body scrub\t\t{self.body_scrub.get()}\t{self.body_scrub_price}\n")
+        self.txtarea.insert(END, f"Body scrub\t\t{self.body_scrub.get()}\tRp {self.body_scrub_price}\n")
     if self.shampoo.get() != 0:
-        self.txtarea.insert(END, f"Shampoo\t\t{self.shampoo.get()}\t{self.shampoo_price}\n")
+        self.txtarea.insert(END, f"Shampoo\t\t{self.shampoo.get()}\tRp {self.shampoo_price}\n")
     if self.lotion.get() != 0:
-        self.txtarea.insert(END, f"Lotion\t\t{self.lotion.get()}\t{self.lotion_price}\n")
+        self.txtarea.insert(END, f"Lotion\t\t{self.lotion.get()}\tRp {self.lotion_price}\n")
     if self.handcream.get() != 0:
-        self.txtarea.insert(END, f"Hand Cream\t\t{self.handcream.get()}\t{self.handcream_price}\n")
+        self.txtarea.insert(END, f"Hand Cream\t\t{self.handcream.get()}\tRp {self.handcream_price}\n")
     if self.deodorant.get() != 0:
-        self.txtarea.insert(END, f"Deodorant\t\t{self.deodorant.get()}\t{self.deodorant_price}\n")
+        self.txtarea.insert(END, f"Deodorant\t\t{self.deodorant.get()}\tRp {self.deodorant_price}\n")
     if self.sunblock.get() != 0:
-        self.txtarea.insert(END, f"Sunblock\t\t{self.sunblock.get()}\t{self.sunblock_price} Rp\n")
+        self.txtarea.insert(END, f"Sunblock\t\t{self.sunblock.get()}\tRp {self.sunblock_price} \n")
     if self.wax.get() != 0:
-        self.txtarea.insert(END, f"Wax\t\t{self.wax.get()}\t{self.wax_price} Rp\n")
-    self.txtarea.insert(END, f"\n--------------------------\n")
+        self.txtarea.insert(END, f"Wax\t\t{self.wax.get()}\tRp {self.wax_price} \n")
+    self.txtarea.insert(END, f"\n--------------------------------\n")
     if self.a.get() != '':
         self.txtarea.insert(END, f"Total MakeUp Tax: {self.a.get()}\n")
     if self.b.get() != '':
@@ -376,8 +393,8 @@ def billarea(self):
     if self.c.get() != '':
         self.txtarea.insert(END, f"Total BodyCare Tax {self.c.get()}\n")
 
+    self.txtarea.insert(END, "\n---------------------------------\n")
     self.txtarea.insert(END, f"\nTotal Bill Amount {self.total_all_bill}\n")
-    self.txtarea.insert(END, "---\n")
 
 def clear(self):
     self.txtarea.delete(1.0, END)
@@ -402,18 +419,34 @@ def clear(self):
     self.deodorant.set(0)
     self.sunblock.set(0)
     self.wax.set(0)
-    self.total_makeup.set('0.0 Rp')
-    self.total_skincare.set('0.0 Rp')
-    self.total_bodycare.set('0.0 Rp')
-    self.a.set('0.0 Rp')
-    self.b.set('0.0 Rp')
-    self.c.set('0.0 Rp')
+    self.total_makeup.set('0.0')
+    self.total_skincare.set('0.0')
+    self.total_bodycare.set('0.0')
+    self.a.set('0.0')
+    self.b.set('0.0')
+    self.c.set('0.0')
     self.c_name.set('')
     self.bill_no.set('')
     self.phone.set('')
 
 def exit1(self):
     self.root.destroy()
+    
+def on_print_button_click(self):
+    result = messagebox.askyesno("Cetak", "Cetak billing?")
+    if result:
+        self.save_to_file()
+    
+def save_to_file(self):
+    file_path = "bill.txt"  # Path/lokasi file untuk menyimpan teks
+    text_content = self.txtarea.get("1.0", "end-1c")  # Mendapatkan isi teks dari Text area
+
+    with open(file_path, "w") as file:
+        file.write(text_content)
+
+
+
+
 
 # copas diatas ini yakkk....
 root = Tk()
