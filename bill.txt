@@ -1,0 +1,33 @@
+WELCOME TO TRUE BEAUTY STORE
+	Phone-No.08132428974
+
+Bill no.: 1647
+Customer Name: Ara
+Phone No.: 0827727648219
+================================
+Product		Qty	Price
+
+================================
+Liptint		2	Rp 100000
+Concealer		2	Rp 110000
+Eyeshadow		1	Rp 127000
+essence		1	Rp 120000
+serum		1	Rp 120000
+Lotion		1	Rp 55000
+Hand Cream		1	Rp 30000
+
+--------------------------------
+Total MakeUp Tax:  Rp 16850.0
+Total SkinCare Tax  Rp 2400.0
+Total BodyCare Tax  Rp 8500.0
+
+---------------------------------
+
+Total Bill Amount  Rp 689750.0
+
+
+2023-05-24 12:47:08
+---------------------------------
+
+Terima Kasih dan Sampai Jumpa
+

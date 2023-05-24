@@ -1,0 +1,32 @@
+WELCOME TO TRUE BEAUTY STORE
+	Phone-No.08132428974
+
+Bill no.: 7050
+Customer Name: lala`
+Phone No.: 081239640530
+================================
+Product		Qty	Price
+
+================================
+Cushion		1	Rp 185000
+Foundation		1	Rp 150000
+essence		1	Rp 120000
+serum		1	Rp 120000
+Lotion		1	Rp 55000
+Hand Cream		1	Rp 30000
+
+--------------------------------
+Total MakeUp Tax:  Rp 16750.0
+Total SkinCare Tax  Rp 2400.0
+Total BodyCare Tax  Rp 8500.0
+
+---------------------------------
+
+Total Bill Amount  Rp 687650.0
+
+
+2023-05-24 13:16:25
+---------------------------------
+
+Terima Kasih dan Sampai Jumpa
+

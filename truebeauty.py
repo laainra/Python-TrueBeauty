@@ -7,6 +7,7 @@
 
 from tkinter import *
 import random
+from tkinter import Tk, Canvas
 import os
 import sys
 from tkinter import messagebox
@@ -15,17 +16,20 @@ from datetime import datetime
 from tkinter import filedialog
 import webbrowser
 import urllib.parse
+from PIL import Image, ImageTk
+import os
 
 
 
 class true_beauty:
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1920x1080+0+0")
+        self.root.geometry("1900x1080+0+0")
         self.root.configure(bg="#5B2C6F")
         self.root.title("Kelompok 5")
         title = Label(self.root, text="TRUE BEAUTY STORE", bd=12, relief=RIDGE, font=("Arial Black", 20), bg="#A569BD", fg="white")
         title.pack(fill=X)
+
 
         # ===variables=====
 
@@ -310,7 +314,7 @@ class true_beauty:
         tax_BodyCare_entry.grid(row=2, column=3, padx=10, pady=7)
 
         button_frame = Frame(billing_menu, bd=7, relief=GROOVE, bg="#6C3483")
-        button_frame.place(x=750, width=750, height=95)
+        button_frame.place(x=750, width=780, height=95)
 
         button_total = Button(button_frame, text="Hitung Total", font=("Arial Black", 15), pady=10, bg="#E5B4F3", fg="#6C3483", command=lambda: total(self))
         button_total.grid(row=0, column=0, padx=12)
@@ -417,8 +421,6 @@ def intro(self):
     self.txtarea.insert(END, "\n================================\n")
 
 def billarea(self):
-
-
     intro(self)
     if self.Liptint.get() != 0:
         self.txtarea.insert(END, f"Liptint\t\t{self.Liptint.get()}\tRp {self.nu}\n")
@@ -474,6 +476,7 @@ def billarea(self):
     self.txtarea.insert(END, f"\nTotal Bill Amount {self.total_all_bill}\n")
     
     self.txtarea.insert(END, f"\n\n{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    self.txtarea.insert(END, "\n---------------------------------\n")
     
     self.txtarea.insert(END, "\nTerima Kasih dan Sampai Jumpa\n")
 
@@ -528,8 +531,9 @@ def save_to_file(self):
 
 
 
-
-# copas diatas ini yakkk....
+basedir = os.path.dirname(__file__)
 root = Tk()
 bill_app = true_beauty(root)
+# p1 = PhotoImage(file=os.path.join(basedir, "icon.png"))
+# root.iconbitmap(False, p1)
 root.mainloop()
